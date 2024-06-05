@@ -12,6 +12,7 @@ export async function listCourse(req: Request, res: Response) {
 }
 export async function saveCourse(req: Request, res: Response) {
   const course = req.body;
+  console.log(course)
   //conecta com o banco
   const client = await pool.connect();
   //realiza consulta sql
