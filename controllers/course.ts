@@ -2,14 +2,22 @@ import { pool } from "../shared/database";
 import { Request, Response, Router } from "express";
 
 
-export async function listCourse(req: Request, res: Response) {
+export async function listCourses(req: Request, res: Response) {
   //conecta com o banco
   const client = await pool.connect();
-  //realiza consulta sql
-  const courses = await client.query(`select * from courses`)
+  try{
+    const products = await client.query('select * from courses')
+    if (products.rowCount == 0){
+      return res.status(400).json({menssagem: "Não encontrado"})
+    }
   //retorna consulta em formato json
-  return res.status(200).json(courses.rows);
-}
+  return res.status(200).json(products.rows);
+  }catch(erro){
+    console.log(erro)
+  }finally{
+    client.release;
+  }
+} 
 export async function saveCourse(req: Request, res: Response) {
   const course = req.body;
   console.log(course)

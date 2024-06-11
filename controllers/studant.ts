@@ -5,11 +5,19 @@ import { Request, Response, Router } from "express";
 export async function listStudants(req: Request, res: Response) {
   //conecta com o banco
   const client = await pool.connect();
-  //realiza consulta sql
-  const studants = await client.query(`select * from studants`)
+  try{
+    const products = await client.query('select * from studants')
+    if (products.rowCount == 0){
+      return res.status(400).json({menssagem: "Não encontrado"})
+    }
   //retorna consulta em formato json
-  return res.status(200).json(studants.rows);
-}
+  return res.status(200).json(products.rows);
+  }catch(erro){
+    console.log(erro)
+  }finally{
+    client.release;
+  }
+} 
 export async function saveStudants(req: Request, res: Response) {
   const studants = req.body;
   console.log(studants)
