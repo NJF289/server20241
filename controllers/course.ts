@@ -5,19 +5,11 @@ import { Request, Response, Router } from "express";
 export async function listCourse(req: Request, res: Response) {
   //conecta com o banco
   const client = await pool.connect();
-  try{
-    const course = await client.query('select * from courses')
-    if (course.rowCount == 0){
-      return res.status(400).json({menssagem: "Não encontrado"})
-    }
+  //realiza consulta sql
+  const courses = await client.query(`select * from courses`)
   //retorna consulta em formato json
-  return res.status(200).json(course.rows);
-  }catch(erro){
-    console.log(erro)
-  }finally{
-    client.release;
-  }
-} 
+  return res.status(200).json(courses.rows);
+}
 export async function saveCourse(req: Request, res: Response) {
   const course = req.body;
   console.log(course)

@@ -2,22 +2,14 @@ import { pool } from "../shared/database";
 import { Request, Response, Router } from "express";
 
 
-export async function listStudent(req: Request, res: Response) {
+export async function listStudants(req: Request, res: Response) {
   //conecta com o banco
   const client = await pool.connect();
-  try{
-    const student = await client.query('select * from studants')
-    if (student.rowCount == 0){
-      return res.status(400).json({menssagem: "Não encontrado"})
-    }
+  //realiza consulta sql
+  const studants = await client.query(`select * from studants`)
   //retorna consulta em formato json
-  return res.status(200).json(student.rows);
-  }catch(erro){
-    console.log(erro)
-  }finally{
-    client.release;
-  }
-} 
+  return res.status(200).json(studants.rows);
+}
 export async function saveStudants(req: Request, res: Response) {
   const studants = req.body;
   console.log(studants)
