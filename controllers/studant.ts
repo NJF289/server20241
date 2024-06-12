@@ -13,7 +13,6 @@ export async function  deleteStudants (req: Request, res: Response) {
   }finally{
     client.release()
   }
-
 }
 
 export async function listStudants(req: Request, res: Response) {
