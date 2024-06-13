@@ -8,7 +8,7 @@ export async function  deleteCourse (req: Request, res: Response) {
   const client = await pool.connect();
   const id = req.params.id
   try {
-    const response = await client.query('delete from studants where id=$(id)');
+    const response = await client.query('delete from courses where id=$(id)');
     res.status(200).json("mensagem: registro excluio")
   } catch (error) {
     res.status(404).json("mensagem: ERROR")
