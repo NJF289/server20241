@@ -17,7 +17,7 @@ export async function  deleteCourse (req: Request, res: Response) {
   }
 }
 
-export async function listStudants(req: Request, res: Response) {
+export async function listCourse(req: Request, res: Response) {
   const client = await pool.connect();
   try {
     const courses = await client.query(`select * from courses`)
@@ -32,7 +32,7 @@ export async function listStudants(req: Request, res: Response) {
   }
 }
 
-export async function saveStudants(req: Request, res: Response) {
+export async function saveCourse(req: Request, res: Response) {
   const client = await pool.connect();
   const courses = req.body;
   console.log(courses);
