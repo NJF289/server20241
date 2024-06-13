@@ -18,7 +18,7 @@ export async function  deleteStudants (req: Request, res: Response) {
 export async function listStudant(req: Request, res: Response) {
   const client = await pool.connect();
   try {
-    const studants = await client.query(`select * from students`)
+    const studants = await client.query(`select * from studants`)
     if (studants.rowCount === 0) {
       return res.status(404).json({ message: "não encontrado" });
     }
