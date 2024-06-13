@@ -15,35 +15,23 @@ export async function  deleteStudants (req: Request, res: Response) {
   }
 }
 
-
 export async function listStudants(req: Request, res: Response) {
+  //conecta com o banco
   const client = await pool.connect();
-  try {
-    const studants = await client.query(`select * from studants`)
-    if (studants.rowCount === 0) {
-      return res.status(404).json({ message: "não encontrado" });
-    }
-    return res.status(200).json(studants.rows);
-  }catch(error){
-    console.log(error)
-  }finally{
-    client.release;
-  }
+  //realiza consulta sql
+  const studants = await client.query(`select * from studants`)
+  //retorna consulta em formato json
+  return res.status(200).json(studants.rows);
+}
+export async function saveStudants(req: Request, res: Response) {
+  const studants = req.body;
+  console.log(studants)
+  //conecta com o banco
+  const client = await pool.connect();
+  //realiza consulta sql
+  const response = await client.query(`INSERT INTO studants (name, email) VALUES ('${studants.name}','${studants.email}')`)
+  res.status(201).json(response.rows);
 }
 
-export async function saveStudant(req: Request, res: Response) {
-  const client = await pool.connect();
-  const studant = req.body;
-  console.log(studant);
-  try {
-    const response = await client.query(
-      `insert INTO studants (name, email) VALUES ('${studant.name}','${studant.email}' ) RETURNING *`,
-    );
-    console.log(response.rows[0]);
-    res.status(201).json(response.rows[0]);
-  } catch (error) {
-    res.status(400).json({ message: 'Dados inválidos:', error});
-  } finally {
-    client.release();
-  }
-}
+
+
