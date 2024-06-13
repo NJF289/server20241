@@ -31,13 +31,13 @@ export async function listStudants(req: Request, res: Response) {
   }
 }
 
-export async function saveStudent(req: Request, res: Response) {
+export async function saveStudant(req: Request, res: Response) {
   const client = await pool.connect();
-  const student = req.body;
-  console.log(student);
+  const studant = req.body;
+  console.log(studant);
   try {
     const response = await client.query(
-      `insert INTO studants (name, email) VALUES ('${student.name}','${student.email}' ) RETURNING *`,
+      `insert INTO studants (name, email) VALUES ('${studant.name}','${studant.email}' ) RETURNING *`,
     );
     console.log(response.rows[0]);
     res.status(201).json(response.rows[0]);
