@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { listCourse, saveCourse } from "./controllers/course";
+import { listCompany, saveCompany} from "./controllers/company";
 import { listEmployees, saveEmployees} from "./controllers/employee";
 const router = Router();
 
-router.get("/courses", listCourse);
-router.post("/courses", saveCourse);
-router.get("/employees", listEmployees);
-router.post("/employees", saveEmployees);
+router.get("/company", listCompany);
+router.post("/company", saveCompany);
+router.get("/employee", listEmployees);
+router.post("/employee", saveEmployees);
 
 export { router };
