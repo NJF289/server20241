@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/courses", listCourse);
 router.post("/courses", saveCourse);
-router.get("/studants", listEmployees);
-router.post("/studants", saveEmployees);
+router.get("/employees", listEmployees);
+router.post("/employees", saveEmployees);
 
 export { router };
