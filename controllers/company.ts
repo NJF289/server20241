@@ -20,11 +20,11 @@ export async function listCompany(req: Request, res: Response) {
 
 export async function saveCompany(req: Request, res: Response) {
   const client = await pool.connect();
-  const companys = req.body;
-  console.log(companys);
+  const company = req.body;
+  console.log(company);
   try {
     const response = await client.query(
-      `insert INTO company (name, endereco) VALUES ('${companys.name}','${companys.endereco}' ) RETURNING *`,
+      `insert INTO company (name, endereco) VALUES ('${company.name}','${company.endereco}' ) RETURNING *`,
     );
     console.log(response.rows[0]);
     res.status(201).json(response.rows[0]);
